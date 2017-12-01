@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div>TASK: <input type="text" id="txt-task" /></div>
+	<div><button id="btn-submit">Submit</button></div>
+	<h1>To dos</h1>
+	<div id="todos"></div>
+
+
+	<script type="text/javascript">
+		var task = document.querySelector("#txt-task");
+		var submitButton = document.querySelector ("#btn-submit");
+
+		submitButton.addEventListener("click", function() {
+			if (localStorage.taskCount)
+				localStorage.taskCount = Number(localStorage.taskCount) + 1;
+			else localStorage.taskCount = "1";
+
+			localStorage["task" + localStorage.taskCount] = task.value;
+
+			displayTasksFromLocalStorage();
+
+			task.value = "";
+
+		});
+
+		function displayTasksFromLocalStorage() {
+			var tasksToDisplay = "";
+			for (var i = 1; i <= localStorage.taskCount; i++) {
+				tasksToDisplay = localStorage["task" + i] + "<br />" + 
+				tasksToDisplay;
+			}
+			document.querySelector("#todos").innerHTML = tasksToDisplay
+		}
+	displayTasksFromLocalStorage();
+
+	</script>
+</body>
+</html>
